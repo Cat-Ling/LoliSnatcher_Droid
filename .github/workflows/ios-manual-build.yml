@@ -52,6 +52,12 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Patch device_info_plus for iOS build
+        run: |
+          # The isiOSAppOnVision property causes build errors on some environments.
+          # We patch it to return NO as it is not needed for this app.
+          find /Users/runner/.pub-cache -name "FPPDeviceInfoPlusPlugin.m" -exec sed -i '' 's/\[NSProcessInfo processInfo\].isiOSAppOnVision/NO/g' {} +
+
       - name: Build iOS (Unsigned)
         run: flutter build ios --release --no-codesign
 
