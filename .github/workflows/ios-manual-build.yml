@@ -73,7 +73,8 @@ jobs:
           zip -r "LoliSnatcher_${VERSION_NAME}_${BUILD_NUMBER}_ios_unsigned.ipa" Payload/
 
       - name: Upload iOS IPA
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
+          name: LoliSnatcher-iOS-Unsigned-IPA
           path: "*.ipa"
           archive: false
