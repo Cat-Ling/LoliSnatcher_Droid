@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:vibration/vibration.dart';
 
 import 'package:lolisnatcher/src/handlers/settings_handler.dart';
@@ -378,7 +379,11 @@ class ServiceHandler {
 
   static Future<void> loadShareTextIntent(String text) async {
     try {
-      await platform.invokeMethod('shareText', {'text': text});
+      if (Platform.isAndroid || Platform.isIOS) {
+        await Share.share(text);
+      } else {
+        await platform.invokeMethod('shareText', {'text': text});
+      }
       return;
     } catch (e) {
       log(e);
@@ -392,14 +397,21 @@ class ServiceHandler {
     String? text,
   }) async {
     try {
-      await platform.invokeMethod(
-        'shareFile',
-        {
-          'path': filePath,
-          'mimeType': mimeType,
-          'text': ?text,
-        },
-      );
+      if (Platform.isAndroid || Platform.isIOS) {
+        await Share.shareXFiles(
+          [XFile(filePath, mimeType: mimeType)],
+          text: text,
+        );
+      } else {
+        await platform.invokeMethod(
+          'shareFile',
+          {
+            'path': filePath,
+            'mimeType': mimeType,
+            'text': ?text,
+          },
+        );
+      }
       return;
       // log('share closed');
     } catch (e) {

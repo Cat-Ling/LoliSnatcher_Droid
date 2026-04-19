@@ -139,7 +139,7 @@ class AboutPage extends StatelessWidget {
               trailingIcon: const Icon(Icons.exit_to_app),
               action: () {
                 launchUrlString(
-                  'https://github.com/NO-ob/LoliSnatcher_Droid/releases',
+                  'https://github.com/Cat-Ling/LoliSnatcher_Droid/releases',
                   mode: LaunchMode.externalApplication,
                 );
               },

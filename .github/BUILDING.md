@@ -23,7 +23,7 @@ See `pubspec.yaml` for currently used Dart SDK version
 
 ```bash
 # Clone the repository
-git clone https://github.com/NO-ob/LoliSnatcher_Droid.git
+git clone https://github.com/Cat-Ling/LoliSnatcher_Droid.git
 cd LoliSnatcher_Droid
 
 # Install dependencies
@@ -41,6 +41,21 @@ sh ./build.sh
 
 Output locations:
 - APK: `build/app/outputs/flutter-apk/LoliSnatcher_[version]_[build]_[arch]_[store/github/test].apk`
+
+### iOS (Unsigned)
+
+```bash
+# Build iOS (Unsigned)
+flutter build ios --release --no-codesign
+mkdir -p Payload
+cp -r build/ios/iphoneos/Runner.app Payload/
+rm -rf Payload/Runner.app/_CodeSignature
+rm -f Payload/Runner.app/embedded.mobileprovision
+zip -r LoliSnatcher_ios_unsigned.ipa Payload/
+```
+
+Output location:
+- IPA: `LoliSnatcher_ios_unsigned.ipa`
 
 ## Running in Debug Mode
 

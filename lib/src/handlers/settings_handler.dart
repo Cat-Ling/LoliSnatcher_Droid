@@ -2035,7 +2035,7 @@ class SettingsHandler {
     try {
       const String updateFileName = EnvironmentConfig.isFromStore ? 'update_store.json' : 'update.json';
       final response = await DioNetwork.get(
-        'https://raw.githubusercontent.com/NO-ob/LoliSnatcher_Droid/master/$updateFileName',
+        'https://raw.githubusercontent.com/Cat-Ling/LoliSnatcher_Droid/master/$updateFileName',
       );
       final json = response.data is String ? jsonDecode(response.data) : (response.data is Map ? response.data : {});
       if (json is Map && json.isEmpty) {
@@ -2059,7 +2059,7 @@ class SettingsHandler {
         isInStore: json['is_in_store'] ?? false,
         isImportant: json['is_important'] ?? false,
         storePackage: json['store_package'] ?? '',
-        githubURL: json['github_url'] ?? 'https://github.com/NO-ob/LoliSnatcher_Droid/releases/latest',
+        githubURL: json['github_url'] ?? 'https://github.com/Cat-Ling/LoliSnatcher_Droid/releases/latest',
       );
 
       final String? discordFromGithub = json['discord_url'];

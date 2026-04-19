@@ -10,7 +10,7 @@ on:
         type: string
 
 jobs:
-  manual-build:
+  android-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -107,7 +107,75 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           VERSION_NAME: ${{ steps.version_info.outputs.version_name }}
           BUILD_NUMBER: ${{ steps.version_info.outputs.build_number }}
-          CUSTOM_MESSAGE: ${{ inputs.custom_message }}
+          CUSTOM_MESSAGE: "${{ inputs.custom_message }} (Android)"
+          BUILD_STATUS: ${{ job.status }}
+          WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TRIGGERED_BY: ${{ github.actor }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: python .github/scripts/discord_notify.py
+
+  ios-build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Get version info
+        id: version_info
+        run: |
+          python -c "
+          import re
+          with open('pubspec.yaml', 'r') as f:
+              content = f.read()
+          m = re.search(r'version:\s*(\d+\.\d+\.\d+)\+(\d+)', content)
+          print('version_name=' + m.group(1), flush=True)
+          print('build_number=' + m.group(2), flush=True)
+          " >> $GITHUB_OUTPUT
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'beta'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build iOS (Unsigned)
+        run: flutter build ios --release --no-codesign
+
+      - name: Prepare iOS artifact (Unsigned IPA)
+        run: |
+          VERSION_NAME=${{ steps.version_info.outputs.version_name }}
+          BUILD_NUMBER=${{ steps.version_info.outputs.build_number }}
+          mkdir -p Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/
+          rm -rf Payload/Runner.app/_CodeSignature
+          rm -f Payload/Runner.app/embedded.mobileprovision
+          zip -r "LoliSnatcher_${VERSION_NAME}_${BUILD_NUMBER}_ios_unsigned.ipa" Payload/
+
+      - name: Upload iOS IPA
+        uses: actions/upload-artifact@v7
+        with:
+          path: "*.ipa"
+          archive: false
+
+      - name: Send Discord notification
+        if: success()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          VERSION_NAME: ${{ steps.version_info.outputs.version_name }}
+          BUILD_NUMBER: ${{ steps.version_info.outputs.build_number }}
+          CUSTOM_MESSAGE: "${{ inputs.custom_message }} (iOS)"
           BUILD_STATUS: ${{ job.status }}
           WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           TRIGGERED_BY: ${{ github.actor }}

@@ -11,7 +11,7 @@ on:
 
 jobs:
   bump-version-and-build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout repository
@@ -50,15 +50,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Cache Gradle
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ hashFiles('android/**/*.gradle*', 'android/gradle/wrapper/gradle-wrapper.properties') }}
-          restore-keys: gradle-
-
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -68,6 +59,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      # Android Build
       - name: Decode signing key
         env:
           SIGNING_KEY_BASE64: ${{ secrets.SIGNING_KEY_BASE64 }}
@@ -108,13 +100,33 @@ jobs:
           path: build/app/outputs/flutter-apk/LoliSnatcher_*_x86_64_*.apk
           archive: false
 
+      # iOS Build
+      - name: Build iOS (Unsigned)
+        run: flutter build ios --release --no-codesign
+
+      - name: Prepare iOS artifact (Unsigned IPA)
+        run: |
+          VERSION_NAME=${{ steps.version_info.outputs.version_name }}
+          BUILD_NUMBER=${{ steps.version_info.outputs.build_number }}
+          mkdir -p Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/
+          rm -rf Payload/Runner.app/_CodeSignature
+          rm -f Payload/Runner.app/embedded.mobileprovision
+          zip -r "LoliSnatcher_${VERSION_NAME}_${BUILD_NUMBER}_ios_unsigned.ipa" Payload/
+
+      - name: Upload iOS IPA
+        uses: actions/upload-artifact@v7
+        with:
+          path: "*.ipa"
+          archive: false
+
       - name: Send Discord notification
         if: success()
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           VERSION_NAME: ${{ steps.version_info.outputs.version_name }}
           BUILD_NUMBER: ${{ steps.version_info.outputs.build_number }}
-          CUSTOM_MESSAGE: ${{ inputs.custom_message }}
+          CUSTOM_MESSAGE: "${{ inputs.custom_message }} (Android + iOS)"
           BUILD_STATUS: ${{ job.status }}
           WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           TRIGGERED_BY: ${{ github.actor }}

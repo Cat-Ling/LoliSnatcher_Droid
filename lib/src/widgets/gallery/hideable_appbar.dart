@@ -977,7 +977,7 @@ class _HideableAppBarState extends State<HideableAppBar> {
     // TODO delete from cache after share window closes
 
     if (path != null) {
-      if (Platform.isAndroid) {
+      if (Platform.isAndroid || Platform.isIOS) {
         // File is already in cache - share from there
         await ServiceHandler.loadShareFileIntent(
           path,
@@ -1038,7 +1038,7 @@ class _HideableAppBarState extends State<HideableAppBar> {
       );
       if (await cacheFile.exists()) {
         path = cacheFile.path;
-        if (Platform.isAndroid) {
+        if (Platform.isAndroid || Platform.isIOS) {
           await ServiceHandler.loadShareFileIntent(
             path,
             '${item.mediaType.value.isVideo ? 'video' : 'image'}/${item.fileExt!}',

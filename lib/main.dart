@@ -343,6 +343,29 @@ class _DebuggingWidgetsState extends State<DebuggingWidgets> with WidgetsBinding
           'getDeviceInfo',
           null,
         );
+      } else if (Platform.isIOS) {
+        final deviceInfo = await DeviceInfoPlugin().iosInfo;
+        Logger.Inst().log(
+          {
+            'name': deviceInfo.name,
+            'systemName': deviceInfo.systemName,
+            'systemVersion': deviceInfo.systemVersion,
+            'model': deviceInfo.model,
+            'localizedModel': deviceInfo.localizedModel,
+            'identifierForVendor': deviceInfo.identifierForVendor,
+            'isPhysicalDevice': deviceInfo.isPhysicalDevice,
+            'utsname': {
+              'sysname': deviceInfo.utsname.sysname,
+              'nodename': deviceInfo.utsname.nodename,
+              'release': deviceInfo.utsname.release,
+              'version': deviceInfo.utsname.version,
+              'machine': deviceInfo.utsname.machine,
+            },
+          }.toString(),
+          'MainApp',
+          'getDeviceInfo',
+          null,
+        );
       }
     } catch (e, s) {
       Logger.Inst().log(

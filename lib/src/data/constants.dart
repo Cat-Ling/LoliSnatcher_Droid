@@ -11,9 +11,9 @@ class Constants {
 
   static const String discordURL = 'https://discord.gg/r9E4HDx9dz';
 
-  static const String githubURL = 'https://github.com/NO-ob/LoliSnatcher_Droid';
+  static const String githubURL = 'https://github.com/Cat-Ling/LoliSnatcher_Droid';
 
-  static const String wikiURL = 'https://github.com/NO-ob/LoliSnatcher_Droid/wiki';
+  static const String wikiURL = 'https://github.com/Cat-Ling/LoliSnatcher_Droid/wiki';
 
   static const String email = 'no.aisu@protonmail.com';
 
@@ -49,7 +49,7 @@ class Constants {
     isInStore: true,
     isImportant: false,
     storePackage: 'com.noaisu.play.loliSnatcher',
-    githubURL: 'https://github.com/NO-ob/LoliSnatcher_Droid/releases/latest',
+    githubURL: 'https://github.com/Cat-Ling/LoliSnatcher_Droid/releases/latest',
     changelog: '''
 If you encounter any issues or have suggestions, please post them in GitHub issues or in our Discord server.
 

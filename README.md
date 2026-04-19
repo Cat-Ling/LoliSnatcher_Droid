@@ -3,11 +3,11 @@
   <h1>LoliSnatcher</h1>
   <p><em>Client for booru imageboards. View images and videos, do batch downloads from many booru sites with extensive customization</em></p>
 
-  [![GitHub Release](https://img.shields.io/github/v/release/NO-ob/LoliSnatcher_Droid)](https://github.com/NO-ob/LoliSnatcher_Droid/releases)
-  [![GitHub Downloads](https://img.shields.io/github/downloads/NO-ob/LoliSnatcher_Droid/total)](https://github.com/NO-ob/LoliSnatcher_Droid/releases)
+  [![GitHub Release](https://img.shields.io/github/v/release/Cat-Ling/LoliSnatcher_Droid)](https://github.com/Cat-Ling/LoliSnatcher_Droid/releases)
+  [![GitHub Downloads](https://img.shields.io/github/downloads/Cat-Ling/LoliSnatcher_Droid/total)](https://github.com/Cat-Ling/LoliSnatcher_Droid/releases)
   [![Google Play](https://img.shields.io/badge/Google%20Play-Available-green?logo=google-play)](https://play.google.com/store/apps/details?id=com.noaisu.play.loliSnatcher)
   [![Discord](https://img.shields.io/badge/Discord-Join-blue?logo=discord&logoColor=white)](https://discord.gg/yD47ANdEXW)
-  [![License](https://img.shields.io/github/license/NO-ob/LoliSnatcher_Droid)](https://www.gnu.org/licenses/agpl-3.0.html)
+  [![License](https://img.shields.io/github/license/Cat-Ling/LoliSnatcher_Droid)](https://www.gnu.org/licenses/agpl-3.0.html)
 </div>
 
 ## Screenshots
@@ -79,7 +79,11 @@
 ### Android
 
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" width="240">](https://play.google.com/store/apps/details?id=com.noaisu.play.loliSnatcher)
-[<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/refs/heads/main/get-it-on-github.png" alt="Get it on Github" width="240">](https://github.com/NO-ob/LoliSnatcher_Droid/releases)
+[<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/refs/heads/main/get-it-on-github.png" alt="Get it on Github" width="240">](https://github.com/Cat-Ling/LoliSnatcher_Droid/releases)
+
+### iOS
+
+Download the latest `unsigned.ipa` from [Releases](https://github.com/Cat-Ling/LoliSnatcher_Droid/releases) and install it using your preferred method (AltStore, Sideloadly, etc.).
 
 ## Building from Source
 
@@ -98,7 +102,7 @@ We especially welcome:
 ## Translation
 
 <a href="https://poeditor.com/"> 
-  <img height="64" src="https://raw.githubusercontent.com/NO-ob/LoliSnatcher_Droid/master/poeditor.png">
+  <img height="64" src="https://raw.githubusercontent.com/Cat-Ling/LoliSnatcher_Droid/master/poeditor.png">
 </a>
 
 We are working on translating the app to other languages using [POEditor](https://poeditor.com/join/project/RgscnzeWts), please get in touch there or in our Discord server if you are interested in helping us.
@@ -107,7 +111,7 @@ We are working on translating the app to other languages using [POEditor](https:
 
 - [Discord Server](https://discord.gg/yD47ANdEXW) - Community and support
 - [Privacy Policy](privacypolicy.md)
-- [Report Issues](https://github.com/NO-ob/LoliSnatcher_Droid/issues)
+- [Report Issues](https://github.com/Cat-Ling/LoliSnatcher_Droid/issues)
 
 ## Credits
 

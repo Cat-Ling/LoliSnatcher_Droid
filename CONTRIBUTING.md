@@ -14,7 +14,7 @@ Thank you for your interest in contributing to LoliSnatcher! This document provi
    ```
 3. Add the upstream remote:
    ```bash
-   git remote add upstream https://github.com/NO-ob/LoliSnatcher_Droid.git
+   git remote add upstream https://github.com/Cat-Ling/LoliSnatcher_Droid.git
    ```
 
 ### Create a Branch
@@ -90,7 +90,7 @@ When reporting bugs, please include:
 5. **Actual behavior** - What actually happens
 6. **Screenshots/logs** - If applicable
 
-Use [GitHub Issues](https://github.com/NO-ob/LoliSnatcher_Droid/issues) to report bugs.
+Use [GitHub Issues](https://github.com/Cat-Ling/LoliSnatcher_Droid/issues) to report bugs.
 
 ## Feature Requests
 
