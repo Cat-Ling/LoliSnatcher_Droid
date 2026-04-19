@@ -57,7 +57,7 @@ jobs:
           cache: true
 
       - name: Select Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_16.0.app/Contents/Developer
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
 
       - name: Disable Swift Package Manager
         run: flutter config --no-enable-swift-package-manager
