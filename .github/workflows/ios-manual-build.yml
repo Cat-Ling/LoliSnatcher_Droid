@@ -54,13 +54,7 @@ jobs:
           find /Users/runner/.pub-cache -name "FPPDeviceInfoPlusPlugin.m" -exec sed -i '' 's/\[info isiOSAppOnVision\]/NO/g' {} +
 
       - name: Build iOS (Unsigned)
-        run: |
-          # Remove Development Team and Provisioning Profiles from the project file
-          sed -i '' 's/DEVELOPMENT_TEAM = [^;]*;//g' ios/Runner.xcodeproj/project.pbxproj
-          sed -i '' 's/PROVISIONING_PROFILE_SPECIFIER = [^;]*;//g' ios/Runner.xcodeproj/project.pbxproj
-          sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' ios/Runner.xcodeproj/project.pbxproj          
-          # Force the build
-          flutter build ios --release --no-codesign
+        run: flutter build ios --release --no-codesign
         env:
           GCC_WARN_INHIBIT_ALL_WARNINGS: "YES"
           CODE_SIGNING_ALLOWED: "NO"
