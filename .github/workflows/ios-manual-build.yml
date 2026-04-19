@@ -2,12 +2,6 @@ name: Manual iOS Build
 
 on:
   workflow_dispatch:
-    inputs:
-      custom_message:
-        description: 'Custom message for Discord notification'
-        required: false
-        default: 'Manual iOS build triggered'
-        type: string
 
 jobs:
   ios-build:
@@ -89,16 +83,3 @@ jobs:
         with:
           path: "*.ipa"
           archive: false
-
-      - name: Send Discord notification
-        if: success()
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          VERSION_NAME: ${{ steps.version_info.outputs.version_name }}
-          BUILD_NUMBER: ${{ steps.version_info.outputs.build_number }}
-          CUSTOM_MESSAGE: "${{ inputs.custom_message }}"
-          BUILD_STATUS: ${{ job.status }}
-          WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          TRIGGERED_BY: ${{ github.actor }}
-          COMMIT_SHA: ${{ github.sha }}
-        run: python .github/scripts/discord_notify.py
