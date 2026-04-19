@@ -115,7 +115,9 @@ jobs:
 
       # iOS Build
       - name: Build iOS (Unsigned)
-        run: flutter build ios --release --no-codesign --xcargs 'GCC_WARN_INHIBIT_ALL_WARNINGS=YES,SWIFT_SUPPRESS_WARNINGS=YES'
+        run: flutter build ios --release --no-codesign
+        env:
+          FLUTTER_XCODE_GCC_WARN_INHIBIT_ALL_WARNINGS: "YES"
 
       - name: Prepare iOS artifact (Unsigned IPA)
         run: |
